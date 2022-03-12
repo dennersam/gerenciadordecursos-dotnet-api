@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GerenciadorDeCursos.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -23,6 +25,7 @@ namespace GerenciadorDeCursos.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -34,6 +37,19 @@ namespace GerenciadorDeCursos.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpDelete]
+        public IActionResult RoteSecurity()
+        {
+            return NoContent();
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet("manager")]
+        public IActionResult Manager()
+        {
+            return Ok("Manager is Authorized"); 
         }
     }
 }
