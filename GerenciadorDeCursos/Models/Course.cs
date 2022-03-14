@@ -16,6 +16,7 @@ namespace GerenciadorDeCursos.Models
         [Required(ErrorMessage = "The course´s time is required!!!")]
         public string time { get; set; }
 
-        
+        public Status status { get; set; }
+
     }
 }

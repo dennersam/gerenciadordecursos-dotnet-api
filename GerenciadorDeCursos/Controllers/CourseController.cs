@@ -1,6 +1,10 @@
-﻿using GerenciadorDeCursos.Models;
+﻿using AutoMapper;
+using GerenciadorDeCursos.Data;
+using GerenciadorDeCursos.DTOs;
+using GerenciadorDeCursos.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +16,27 @@ namespace GerenciadorDeCursos.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
+        private readonly IMapper _mapper;
+        private readonly CourseContext _context;
+
+        public CourseController(IMapper mapper, CourseContext context)
+        {
+            _mapper = mapper;
+            _context = context;
+        }
 
         [HttpGet]
-        public IActionResult CreateCourse([FromBody] Course course)
+        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
-            return Ok();
+            return await _context.Course.ToListAsync();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCourse([FromBody] CreateCourseDTO course)
+        {
+            var NewCourse = _mapper.Map<Course>(course);
+
+            return Ok(NewCourse);
         }
     }
 }
