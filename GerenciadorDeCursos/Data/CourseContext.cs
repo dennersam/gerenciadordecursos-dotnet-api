@@ -16,5 +16,20 @@ namespace GerenciadorDeCursos.Data
         }
 
         public DbSet<Course> Course { get; set; }
+
+        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Course>(e =>
+            {
+                e.HasKey(p => p.id);
+                e.Property(p => p.Title).IsRequired().HasMaxLength(200);
+                e.Property(p => p.time).IsRequired().HasMaxLength(10);
+                e.Property(p => p.status).IsRequired();
+            });
+        }
     }
 }

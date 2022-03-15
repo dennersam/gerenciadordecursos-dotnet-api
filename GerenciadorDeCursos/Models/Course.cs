@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace GerenciadorDeCursos.Models
 {
@@ -10,13 +9,11 @@ namespace GerenciadorDeCursos.Models
     {
         public int id { get; set; }
 
-        [Required(ErrorMessage = "The title is required!!!")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "The course´s time is required!!!")]
         public string time { get; set; }
 
-        public Status status { get; set; }
+        public virtual Status status { get; set; }
 
     }
 }

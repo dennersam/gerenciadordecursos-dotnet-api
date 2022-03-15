@@ -1,4 +1,5 @@
 using GerenciadorDeCursos.Data;
+using GerenciadorDeCursos.Repository;
 using GerenciadorDeCursos.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -53,6 +54,7 @@ namespace GerenciadorDeCursos
                     };
                 });
 
+            
             services.AddDbContext<CourseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CourseManagerDB"))
                 
@@ -60,10 +62,16 @@ namespace GerenciadorDeCursos
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            services.AddScoped<ICourseRepository, CourseRepository>();
+
             services.AddControllers();
+
+            services.AddSwaggerGenNewtonsoftSupport();
 
             services.AddSwaggerGen(c =>
             {
+                
+
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GerenciadorDeCursos", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -93,6 +101,7 @@ namespace GerenciadorDeCursos
                         Array.Empty<string>()
                     }
                 });
+
             });
         }
 

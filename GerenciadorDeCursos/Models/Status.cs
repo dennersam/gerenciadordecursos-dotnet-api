@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace GerenciadorDeCursos.Models
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Status
     {
-        Previsto = 1,
-        Em_andamento = 2,
-        Concluído = 3
+        Previsto,
+        Em_andamento,
+        Concluído
     }
 }

@@ -40,7 +40,8 @@ namespace GerenciadorDeCursos.Controllers
         {
             IList<Claim> claims = new List<Claim>();
 
-            claims.Add(new Claim(ClaimTypes.Role, "Manager"));
+            //claims.Add(new Claim(ClaimTypes.Role, "Manager"));
+            //claims.Add(new Claim(ClaimTypes.Role, "Secretary"));
 
             var handler = new JwtSecurityTokenHandler();
             
